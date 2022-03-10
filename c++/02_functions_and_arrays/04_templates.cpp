@@ -1,7 +1,7 @@
 #include <iostream>
 
-template <typename T>
-T dwim(const T a, const T b);
+template <int N, typename T>  // templates must be known at compile time
+T dwim(const T a, const T b); //declaration
 
 int main() {
   int a{5}, b{7};
@@ -9,14 +9,16 @@ int main() {
   float e{23.4}, f{3.34e2};
   char g{'0'}, h{'6'};
 
-  std::cout << dwim<int>(a, b) << '\n'
-            << dwim(c, d) << '\n'
-            << dwim(e, f) << '\n'
-            << dwim(g, h) << std::endl;
+ constexpr int ce {3};
+
+  std::cout << dwim<ce>(a, b) << '\n'
+            << dwim<3>(c, d) << '\n'
+            << dwim<3>(e, f) << '\n'
+            << dwim<3>(g, h) << std::endl;
   return 0;
 }
 
-template <typename T>
+template <int N, typename T>
 T dwim(const T a, const T b) {
-  return a + b;
+  return a + b + N;
 }
