@@ -9,18 +9,18 @@ template <typename T>
 void print_vector(const std::vector<T>& v, const std::string& s);
 
 int main() {
-  std::vector<int> v0{1, 2, 4};
-  std::vector<int> v1(4, 4);
+  std::vector<int> v0{1, 2, 4}; // array with 3 elements, with value 1, 2, 4
+  std::vector<int> v1(4, 4); // array with 4 elements, each element has value 4
 
   print_vector(v0, "v0");
   print_vector(v1, "v1");
 
-  v1 = v0;
+  v1 = v0; // v1 will have the same length of v0
 
   print_vector(v1, "v1 after copy");
 
   for (auto x : {7, 8, 9})
-    v1.push_back(x);  // or v1.emplace_back(x);
+    v1.push_back(x);  // or v1.emplace_back(x); add elements to the vector at the end
 
   print_vector(v1, "v1 after push_back");
 

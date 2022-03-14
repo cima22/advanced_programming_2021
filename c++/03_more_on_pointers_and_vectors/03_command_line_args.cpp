@@ -10,7 +10,7 @@ int main(int argc, char* argv[]) {
   {
     std::istringstream s{argv[1]};
     s >> a;
-  }
+  } // from now s is out of scope
   std::cout << "a is " << a << std::endl;
 
   // std::stoi

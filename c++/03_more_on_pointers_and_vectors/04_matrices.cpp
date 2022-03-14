@@ -37,7 +37,7 @@ int main() {
   // print_ma(ma, 6, 5);  // error
   print_ma(p, 6, 5);
 
-  auto d_ma = new int[6 * 5]{};
+  auto d_ma = new int[6 * 5]{}; // dynamic matrix
 
   std::cout << std::endl;
 

@@ -9,14 +9,14 @@ int main() {
   int a{8};
   int* pi{&a};
 
-  char** ppc;
+  char** ppc; // arrays of strings, equal to char* ppc[]
 
   int* ap[7];
 
-  void* pv{pi};
+  void* pv{pi}; // particular pointer, need to cast before dereference
   // *pv; // we cannot dereference void*
-  // ++pv; // we cannot increment. Why?
-  int* pi2{static_cast<int*>(pv)};
+  // ++pv; // we cannot increment. Why? We do not know the size of each element
+  int* pi2{static_cast<int*>(pv)}; 
 
   pv = ppc;
   pv = ap;
@@ -24,7 +24,7 @@ int main() {
 
   pi = nullptr;
   ppc = nullptr;
-  // ap = nullptr;  // error, why?
+  // ap = nullptr;  // error, why? Because it is a static array
   ap[0] = nullptr;
   int** bbb;
   bbb = ap;
@@ -62,20 +62,21 @@ int main() {
   else
     std::cout << "different\n";
 
-  int (*fp)(const char*);
-  fp = func1;
+ // Pointer to functions: ret_type (*name) (args1, args2, ...)
+  int (*fp)(const char*); // fp can now point only to functions whose return type is int and takes as arguments const char *
+  fp = func1; // can be assigned without &
 
-  fp("hello");
+  fp("hello"); // can be dereferenced without *
 
   fp = &func2;
   fp("world");
 
   // fp = func3; // error: wrong signature
-  auto xx = func3;
+  auto xx = func3; // xx will be a pointer to function
 
   xx("auto");
 
-  decltype(&func3) x = func3;
+  decltype(&func3) x = func3; // x will be a pointer to functions like func3
   x("decltype");
 
   return 0;
