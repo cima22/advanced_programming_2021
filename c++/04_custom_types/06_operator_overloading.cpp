@@ -7,7 +7,7 @@ struct Point_s {
   double y;
 };  // note ; at the end
 
-std::ostream& operator<<(std::ostream& os, const Point_s& p) {
+std::ostream& operator<<(std::ostream& os, const Point_s& p) { // we are overloading <<
   os << "Struct. x = " << p.x << "; y = " << p.y << std::endl;
   return os;
 }
@@ -16,7 +16,7 @@ class Point_c {
   double x;
   double y;
 
-  friend std::ostream& operator<<(std::ostream& os, const Point_c& p) {
+  friend std::ostream& operator<<(std::ostream& os, const Point_c& p) { // can access private data of class thanks to "friend"
     os << "Class. x = " << p.x << "; y = " << p.y << std::endl;
     return os;
   }

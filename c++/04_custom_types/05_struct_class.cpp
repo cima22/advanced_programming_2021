@@ -2,17 +2,17 @@
 #include <iostream>
 #include <vector>
 
-struct Point_s {
-  double x;
+struct Point_s { // classes with public attributes
+  double x;     // member variable
   double y;
-  void print();
+  void print(); // member function
 };  // note ; at the end
 
 void Point_s::print() {
   std::cout << "Structure. x = " << x << "; y = " << y << std::endl;
 }
 
-class Point_c {
+class Point_c { // private attributes
   double x;
   double y;
 
@@ -49,7 +49,7 @@ int main() {
   as[3].x = 3;
 
   std::vector<Point_s> vs;
-  vs.push_back(ps);
+  vs.push_back(ps); // the object is copied, they are not the same
   vs[0].x = 999;
   ps.x = 11;
   ps.print();

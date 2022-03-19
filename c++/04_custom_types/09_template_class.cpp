@@ -7,21 +7,21 @@ class Vector {
   std::size_t _size;
 
  public:
-  Vector(const std::size_t size) : elem{new T[size]}, _size{size} {}
+  Vector(const std::size_t size) : elem{new T[size]}, _size{size} {} // RAII - Combination of Constructor and Destructor; design pattern to write clean code
 
   // automatically release the acquired memory
   ~Vector() { delete[] elem; }
 
   // try to remove the const and recompile
-  std::size_t size() const { return _size; }
+  std::size_t size() const { return _size; } // const because we do not want to modify _size
 
   T& operator[](const std::size_t i) {
     // ++i;
     return elem[i];
-  }
+  } // we can modify the element
 
   // try to comment this line and recompile
-  const T& operator[](const std::size_t i) const { return elem[i]; }
+  const T& operator[](const std::size_t i) const { return elem[i]; } // if a vector is const, this function will be called
 
   const T* begin() const { return elem; }
   T* begin() { return elem; }

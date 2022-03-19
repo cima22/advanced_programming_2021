@@ -1,6 +1,6 @@
 #include <iostream>
 
-namespace choose_a_name {
+namespace choose_a_name { // the namespace enriches the name of a variable with the name of the namespace itself
 
   int variable;
 

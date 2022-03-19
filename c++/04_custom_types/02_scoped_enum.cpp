@@ -5,7 +5,7 @@ enum class color { red, yellow, green };
 
 void dwim(const color c) {
   switch (c) {
-    case color::red:
+   case color::red: //we have to specifiy color::; it is useful to differentiate enum with equal values.
       std::cout << "option 1: red\n";
       break;
     case color::yellow:
