@@ -54,14 +54,35 @@ void Date::add_day(){
 
 }
 
+bool operator==(const Date& lhs, const Date& rhs){
+ return lhs.day() == rhs.day() && lhs.month() == rhs.month() && lhs.year() == rhs.year(); 
+}
+
+bool operator!=(const Date& lhs, const Date& rhs){
+ return !(lhs == rhs);
+}
+
+std::ostream& operator<<(std::ostream& os, const Date& d){
+ os << d.day() << "/" << static_cast<int>(d.month()) << "/" << d.year();
+ return os;
+}
+
 int main(){
 
  Date d{1,months::jan,2022};
 
+#ifdef DBGADD
 for(auto i = 0u; i < 365; i+=30){
  d.add_days(i);
  std::cout << "Day = " << d.day() << ", month = " << static_cast<int>(d.month()) << ", year = " << d.year() << std::endl;
 }
+#endif
+
+Date d2{1,months::jan,2022};
+
+std::cout << (d == d2) << " " << (d != d2) << std::endl;
+
+std::cout << d << std::endl;
 
 return 0;
 }

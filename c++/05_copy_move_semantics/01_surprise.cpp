@@ -5,10 +5,10 @@ struct X {
 };
 
 int main() {
-  X x1;                 // default ctor
+  X x1;                 // default ctor -- Built-in types are left un-initialized
   X x2{x1};             // copy ctor
   X x3{std::move(x2)};  // move ctor
-  X x4{};               // default ctor calling {} to each member
+  X x4{};               // default ctor calling {} to each member, built-in tpyes initialized to default values
   x4 = x3;              // copy assignment
   X x5;                 // default ctor
   x5 = std::move(x4);   // move assignment
