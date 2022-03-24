@@ -3,9 +3,9 @@
 struct foo {
   int a;
 
-  // should we add explicit?
-  foo(const int a, const double d = 9) : a{a} {
-    std::cout << "custom ctor" << std::endl;
+  // should we add explicit? 
+  foo(const int a, const double d = 9) : a{a} { // if there is a ctor that can be invoced only with one argument, there is an implicit conversion from int --> foo
+    std::cout << "custom ctor" << std::endl; // explicit keyword allows not to do this
   }
 
   foo(const int a, const double d, std::string s);  // no need to add explicit
