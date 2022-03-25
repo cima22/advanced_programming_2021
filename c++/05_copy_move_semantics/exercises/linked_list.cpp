@@ -23,7 +23,7 @@ class List {
    value_type value;
    std::unique_ptr<node> next;
 
-   node() : value{},next{nullptr} {} // deafault ctor
+   node() : value{},next{nullptr} {} // default ctor
 
    node(const value_type& value) : value{value},next{nullptr} {}
   };
@@ -35,3 +35,8 @@ class List {
 
   void push_front(const value_type& v);
 };
+
+void List::push_back(const value_type& v){
+ auto& n = head;
+ for(; n; n = n.next)
+}
