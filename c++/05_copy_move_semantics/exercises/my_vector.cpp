@@ -1,6 +1,7 @@
 #include <iostream>
 #include <memory>
 #include <algorithm>
+#include <vector>
 
 template<typename T>
 class Vector{
@@ -64,6 +65,13 @@ class Vector{
   return elem[i];
   }
 
+  template <typename ... Types> // variable number of arguments
+  void emplace_back(Types&&... args){ 
+   check_and_increase_capacity();
+   elem[_size] = T{std::forward<Types>(args)...}; //unpacking the arguments, using forward
+   _size++;
+  }
+
 };
 
 template <typename T>
@@ -75,7 +83,18 @@ std::ostream& operator<<(std::ostream& os, const Vector<T>& x){
  return os;
 }
 
+struct Foo{
+ Foo(){std::cout << "foo ctor" << std::endl;}
+};
+
 int main(){
+
+ //Vector<Foo> vf {{},{}};
+ std::vector<Foo> vf{{},{}};
+ vf.emplace_back();
+
+ return 0;
+
  Vector<int> x{1,2,3,4};
 
  std::cout << x;
