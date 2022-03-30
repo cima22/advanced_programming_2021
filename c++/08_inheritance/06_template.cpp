@@ -7,7 +7,7 @@ struct Base {
 
 template <typename T>
 struct Derived : public Base<T> {
-  void bar() const { this->foo(); }
+  void bar() const { this->foo(); } // if the parent class is templated, we have to use this-> to access the functions of the parent class.
 };
 
 int main() {

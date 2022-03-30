@@ -1,6 +1,9 @@
 #include <iostream>
 #include <memory>
 #include <utility>
+#include <iterator>
+#include <algorithm>
+#include <vector>
 
 enum class Method{push_back, push_front};
 
@@ -41,6 +44,19 @@ class List{
  }
 
  public:
+
+  template <typename O>
+  class _iterator;
+
+  using iterator = _iterator<T>;
+  using const_iterator = _iterator<const T>;
+
+  iterator begin() {return iterator{head.get()};}
+  const_iterator begin() const {return const_iterator{head.get()};}
+
+  auto end() noexcept {return iterator{nullptr};}
+  auto end() const noexcept {return const_iterator{nullptr};}
+
   List() = default;
 
   // move semantics
@@ -66,12 +82,51 @@ class List{
   std::ostream& operator<<(std::ostream& os, const List& x){
    auto tmp = x.head.get();
    os << "[" << x._size << "] ";
-   while(tmp){
-    os << tmp->value << " ";
-    tmp = tmp->next.get();
-   }
+   for(const auto& el : x)
+	os << x << " ";
    os << std::endl;
    return os;
+  }
+};
+
+template <typename T>
+template <typename O>
+class List<T>::_iterator{
+  using node = typename List<T>::node;
+  node* current;
+  
+  public:
+  using value_type = O;
+  using reference = value_type&;
+  using pointer = value_type*;
+  using difference_type = std::ptrdiff_t;
+  using iterator_category = std::forward_iterator_tag;
+
+  explicit _iterator(node* p):current{p} {}
+
+  reference operator*() const {return current->value;}
+
+  pointer operator->() const {return &**this;}
+
+  //pre-increment
+  _iterator& operator++(){
+   current = current->next.get();
+   return *this;
+  }
+
+  //post-increment
+  _iterator& operator++(int){
+   auto tmp{*this};
+   ++(*this);
+   return tmp;
+  }
+
+  friend bool operator==(_iterator& a, _iterator& b){
+   return a.current == b.current;
+  }
+
+  friend bool operator!=(_iterator& a, _iterator& b){
+   return !(a == b);
   }
 };
 
@@ -98,6 +153,20 @@ int main(){
  l.insert(3,Method::push_back);
  l.insert(1,Method::push_back);
  l.insert(5,Method::push_front);
+
+ for(auto x : l){
+  std::cout << x << std::endl;
+ }
+
+ std::vector<int> v(3);
+
+ std::copy(l.begin(), l.end(), v.begin());
+
+ for(auto x : v){
+  std::cout << x << std::endl;
+ }
+
+ return 0;
 
  List<int> l2{l};
 

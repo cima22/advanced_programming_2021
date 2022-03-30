@@ -11,7 +11,7 @@ struct Animal {
 
   Animal() : Animal{0, 0} {}  // delegating constructor
 
-  virtual void speak() const = 0;  // pure virtual function ==> abstract class
+  virtual void speak() const = 0;  // pure virtual function ==> abstract class ==> cannot instantiate an object
   virtual void info() const noexcept {
     std::cout << "age:\t" << age << '\n' << "weight:\t" << weight << '\n';
   }
@@ -19,8 +19,8 @@ struct Animal {
   virtual ~Animal() {}  // why? see file 03_virtual_destructor.cc
 };
 
-struct Dog : public Animal {
-  void speak() const noexcept override { std::cout << "Bau\n"; }
+struct Dog : public Animal { // dog inherits the members of the class Animal
+  void speak() const noexcept override { std::cout << "Bau\n"; } // overrides the function abstracted of Animal
   Dog() = default;
   Dog(const unsigned int a, const double d) : Animal{a, d} {}
 };
@@ -37,7 +37,7 @@ struct Snake : public Animal {
   void speak() const noexcept override { std::cout << "ssss\n"; }
 };
 
-void print_animal(const Animal& a) noexcept {
+void print_animal(const Animal& a) noexcept { // run-time/dynamic polymorphism
   std::cout << "throught ref\n";
   a.info();
   a.speak();
@@ -51,7 +51,7 @@ int main() {
 
     std::cout << std::endl;
 
-    Animal* p = new Snake{1, 2.3, false};
+    Animal* p = new Snake{1, 2.3, false}; // dynamic polymorphism
 
     std::cout << "through pointer\n";
     p->info();
